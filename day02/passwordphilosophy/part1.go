@@ -1,9 +1,7 @@
 package passwordphilosophy
 
 import (
-	"log"
-	"regexp"
-	"strconv"
+	"fmt"
 	"strings"
 )
 
@@ -11,20 +9,12 @@ import (
 // The password policy indicates the lowest and highest number of times
 // a given letter must appear for the password to be valid.
 func Part1(input string) bool {
-	regex := regexp.MustCompile(`-| |: `)
-	p := regex.Split(input, -1)
+	var min, max int
+	var letter byte
+	var password string
+	fmt.Sscanf(input, "%d-%d %c: %v", &min, &max, &letter, &password)
 
-	c := strings.Count(p[3], p[2])
-
-	min, err := strconv.Atoi(p[0])
-	if err != nil {
-		log.Fatal(err)
-	}
-	max, err := strconv.Atoi(p[1])
-	if err != nil {
-		log.Fatal(err)
-	}
-
+	c := strings.Count(password, string(letter))
 	if c >= min && c <= max {
 		return true
 	}
