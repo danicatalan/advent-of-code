@@ -13,25 +13,22 @@ func Part2(in string, slopes [][]int) int {
 	return out
 }
 
-// Part2_1 counts all the trees you would encounter for the slope right `sx`, down `sy` in a given map.
+// Part2_1 counts all the trees you would encounter for the slope right `sx`, down `sy` in a given area.
 func Part2_1(in string, sx, sy int) int {
 	var out int
 	lines := strings.Split(in, "\n")
 	w, h := len(lines[0]), len(lines)
 
-	c, x, y := 0, 0, 0
-	for c < h {
-		x += sx
-		if x >= w {
+	for c, x, y := 0, 0, 0; c < h; c++ {
+		if x += sx; x >= w {
 			x -= w
 		}
-		y += sy
-		if y < h {
-			if lines[y][x] == byte('#') {
-				out++
-			}
+		if y += sy; y >= h {
+			break
 		}
-		c++
+		if lines[y][x] == '#' {
+			out++
+		}
 	}
 	return out
 }
