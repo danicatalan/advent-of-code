@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-// Part2 ...
+// Part2 checks if all the fields in the provided passport are valid.
 func Part2(pass string) bool {
 	n := strings.Replace(pass, "\n", " ", -1)
 	fields := strings.Split(n, " ")
