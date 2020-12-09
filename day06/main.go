@@ -7,7 +7,6 @@ import (
 )
 
 func main() {
-	fmt.Println('a', 'z')
 	answers := getAnswers()
 	r1, r2 := 0, 0
 	for _, a := range answers {
