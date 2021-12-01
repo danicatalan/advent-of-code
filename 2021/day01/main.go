@@ -5,12 +5,12 @@ import (
 	"io/ioutil"
 	"log"
 
-	"github.com/danicatalan/advent-of-code/day08/handheldhalting"
+	"github.com/danicatalan/advent-of-code/2021/day01/sonarsweep"
 )
 
 func main() {
 	instructions := getData()
-	r1, r2 := handheldhalting.Part1(instructions), handheldhalting.Part2(instructions)
+	r1, r2 := sonarsweep.Part1(instructions), sonarsweep.Part2(instructions)
 	fmt.Println(r1, r2)
 }
 
