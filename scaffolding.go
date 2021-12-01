@@ -7,38 +7,44 @@ import (
 	"path/filepath"
 )
 
+const YEAR = "2021"
+
 func main() {
 	if len(os.Args) < 2 {
-		log.Fatal("Missing input (eg 'go run . 05 binaryboarding')")
+		log.Fatal("Missing input (eg 'go run scaffolding.go 05 binaryboarding')")
 	}
 
-	day := "day" + os.Args[1]
-	os.MkdirAll(day, os.ModePerm)
+	os.MkdirAll(YEAR, os.ModePerm)
 
-	pckg := os.Args[2]
-	pckgPath := filepath.Join(day, pckg)
-	os.MkdirAll(pckgPath, os.ModePerm)
+	day := "day" + os.Args[1]
+
+	basePath := filepath.Join(YEAR, day)
+	os.MkdirAll(basePath, os.ModePerm)
 
 	data := []byte("")
-	dataPath := filepath.Join(day, "data")
+	dataPath := filepath.Join(basePath, "data")
 	err := ioutil.WriteFile(dataPath, data, 0644)
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	main := []byte("package main\n\nfunc main() {\n\t\n}")
-	mainPath := filepath.Join(day, "main.go")
+	mainPath := filepath.Join(basePath, "main.go")
 	err = ioutil.WriteFile(mainPath, main, 0644)
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	utils := []byte("package main")
-	utilsPath := filepath.Join(day, "utils.go")
+	utilsPath := filepath.Join(basePath, "utils.go")
 	err = ioutil.WriteFile(utilsPath, utils, 0644)
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	pckg := os.Args[2]
+	pckgPath := filepath.Join(basePath, pckg)
+	os.MkdirAll(pckgPath, os.ModePerm)
 
 	part1 := []byte(`package ` + pckg + "\n\n//Part1 ...\nfunc Part1(input string) int {\n\treturn 0\n}")
 	part1Path := filepath.Join(pckgPath, "part1.go")

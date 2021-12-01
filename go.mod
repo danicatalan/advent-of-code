@@ -1,3 +1,3 @@
-module github.com/danicatalan/advent-of-code-2020
+module github.com/danicatalan/advent-of-code
 
 go 1.15
