@@ -28,20 +28,6 @@ func main() {
 		log.Fatal(err)
 	}
 
-	main := []byte("package main\n\nfunc main() {\n\t\n}")
-	mainPath := filepath.Join(basePath, "main.go")
-	err = ioutil.WriteFile(mainPath, main, 0644)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	utils := []byte("package main")
-	utilsPath := filepath.Join(basePath, "utils.go")
-	err = ioutil.WriteFile(utilsPath, utils, 0644)
-	if err != nil {
-		log.Fatal(err)
-	}
-
 	pckg := os.Args[2]
 	pckgPath := filepath.Join(basePath, pckg)
 	os.MkdirAll(pckgPath, os.ModePerm)
@@ -120,6 +106,31 @@ func TestPart2(t *testing.T) {
 `)
 	part2TestPath := filepath.Join(pckgPath, "part2_test.go")
 	err = ioutil.WriteFile(part2TestPath, part2Test, 0644)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	main := []byte(`package main
+
+	import (
+		"fmt"
+		"io/ioutil"
+		"log"
+
+		"github.com/danicatalan/advent-of-code/` + YEAR + `/` + day + `/` + pckg + `"
+	)
+
+	func main() {
+		file, err := ioutil.ReadFile("data")
+		if err != nil {
+			log.Fatal(err)
+		}
+		data := string(file)
+		r1, r2 := ` + pckg + `.Part1(data), ` + pckg + `.Part2(data)
+		fmt.Println(r1, r2)
+	}`)
+	mainPath := filepath.Join(basePath, "main.go")
+	err = ioutil.WriteFile(mainPath, main, 0644)
 	if err != nil {
 		log.Fatal(err)
 	}
