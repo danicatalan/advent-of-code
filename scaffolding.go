@@ -1,22 +1,26 @@
 package main
 
 import (
+	"fmt"
 	"io/ioutil"
 	"log"
 	"os"
 	"path/filepath"
+	"regexp"
+	"strconv"
 )
 
 const YEAR = "2021"
 
 func main() {
 	if len(os.Args) < 2 {
-		log.Fatal("Missing input (eg 'go run scaffolding.go 05 binaryboarding')")
+		log.Fatal("Missing package name (eg 'go run . binaryboarding')")
 	}
 
 	os.MkdirAll(YEAR, os.ModePerm)
 
-	day := "day" + os.Args[1]
+	previousDay := getPreviousDay()
+	day := "day" + fmt.Sprintf("%02d", previousDay+1)
 
 	basePath := filepath.Join(YEAR, day)
 	os.MkdirAll(basePath, os.ModePerm)
@@ -28,7 +32,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	pckg := os.Args[2]
+	pckg := os.Args[1]
 	pckgPath := filepath.Join(basePath, pckg)
 	os.MkdirAll(pckgPath, os.ModePerm)
 
@@ -134,4 +138,20 @@ func TestPart2(t *testing.T) {
 	if err != nil {
 		log.Fatal(err)
 	}
+}
+
+func getPreviousDay() int {
+	files, err := ioutil.ReadDir("./" + YEAR + "/")
+	if err != nil {
+		log.Fatal(err)
+	}
+	if len(files) == 0 {
+		return 0
+	}
+	last := files[len(files)-1]
+	day := last.Name()
+	re := regexp.MustCompile(`\d{1,2}`)
+	match := re.FindStringSubmatch(day)
+	number, _ := strconv.Atoi(match[0])
+	return number
 }
