@@ -116,23 +116,23 @@ func TestPart2(t *testing.T) {
 
 	main := []byte(`package main
 
-	import (
-		"fmt"
-		"io/ioutil"
-		"log"
+import (
+	"fmt"
+	"io/ioutil"
+	"log"
 
-		"github.com/danicatalan/advent-of-code/` + YEAR + `/` + day + `/` + pckg + `"
-	)
+	"github.com/danicatalan/advent-of-code/` + YEAR + `/` + day + `/` + pckg + `"
+)
 
-	func main() {
-		file, err := ioutil.ReadFile("data")
-		if err != nil {
-			log.Fatal(err)
-		}
-		data := string(file)
-		r1, r2 := ` + pckg + `.Part1(data), ` + pckg + `.Part2(data)
-		fmt.Println(r1, r2)
-	}`)
+func main() {
+	file, err := ioutil.ReadFile("data")
+	if err != nil {
+		log.Fatal(err)
+	}
+	data := string(file)
+	r1, r2 := ` + pckg + `.Part1(data), ` + pckg + `.Part2(data)
+	fmt.Println(r1, r2)
+}`)
 	mainPath := filepath.Join(basePath, "main.go")
 	err = ioutil.WriteFile(mainPath, main, 0644)
 	if err != nil {
